@@ -8,7 +8,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
 
 public class PersistenceProducer {
-    @PersistenceUnit(unitName = "image-catalog-jpa")
+    @PersistenceUnit(unitName = "user-jpa")
     private EntityManagerFactory emf;
 
     @Produces
