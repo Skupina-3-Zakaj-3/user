@@ -3,7 +3,7 @@ package si.fri.rso.skupina3.user.models.entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 @NamedQueries(value =
         {
                 @NamedQuery(name = "UserEntity.getAll",

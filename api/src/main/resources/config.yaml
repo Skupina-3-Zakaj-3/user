@@ -9,7 +9,7 @@ kumuluzee:
       port: 8080
   datasources:
     - jndi-name: jdbc/UserDS
-      connection-url: jdbc:postgresql://localhost:5432/user
+      connection-url: jdbc:postgresql://localhost:5432/users
       username: dbuser
       password: postgres
   health:
