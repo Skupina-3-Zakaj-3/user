@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>models</artifactId>
+    <artifactId>user-models</artifactId>
 
     <properties>
         <maven.compiler.source>15</maven.compiler.source>
@@ -24,7 +24,7 @@
 
         <dependency>
             <groupId>si.fri.rso.skupina3</groupId>
-            <artifactId>lib</artifactId>
+            <artifactId>user-lib</artifactId>
         </dependency>
 
         <dependency>
