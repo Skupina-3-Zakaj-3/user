@@ -25,6 +25,7 @@
         <dependency>
             <groupId>si.fri.rso.skupina3</groupId>
             <artifactId>user-lib</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>

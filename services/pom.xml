@@ -49,6 +49,7 @@
         <dependency>
             <groupId>si.fri.rso.skupina3</groupId>
             <artifactId>user-models</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
 
     </dependencies>
