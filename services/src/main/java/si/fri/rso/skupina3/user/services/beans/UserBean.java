@@ -28,4 +28,46 @@ public class UserBean {
 
         return resultList.stream().map(UserConverter::toDto).collect(Collectors.toList());
 
-    }}
+    }
+
+    public User createUser(User user) {
+
+        UserEntity userEntity = UserConverter.toEntity(user);
+
+        try {
+            beginTx();
+            em.persist(userEntity);
+            commitTx();
+        }
+        catch (Exception e) {
+            rollbackTx();
+        }
+
+        if (userEntity.getId() == null) {
+            throw new RuntimeException("Entity was not persisted");
+        }
+
+        return UserConverter.toDto(userEntity);
+    }
+
+    private void beginTx() {
+        if (!em.getTransaction().isActive()) {
+            em.getTransaction().begin();
+        }
+    }
+
+    private void commitTx() {
+        if (em.getTransaction().isActive()) {
+            em.getTransaction().commit();
+        }
+    }
+
+    private void rollbackTx() {
+        if (em.getTransaction().isActive()) {
+            em.getTransaction().rollback();
+        }
+    }
+
+}
+
+

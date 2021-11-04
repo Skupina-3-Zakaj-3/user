@@ -34,4 +34,18 @@ public class UserResource {
         return Response.status(Response.Status.OK).entity(users).build();
     }
 
+    @POST
+    public Response createUser(User user) {
+
+        user = userBean.createUser(user);
+        /*if ((imageMetadata.getTitle() == null || imageMetadata.getDescription() == null || imageMetadata.getUri() == null)) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+        else {
+        }*/
+
+        return Response.status(Response.Status.CONFLICT).entity(user).build();
+
+    }
+
 }
