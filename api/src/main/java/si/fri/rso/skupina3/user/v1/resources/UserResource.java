@@ -13,6 +13,18 @@ import javax.ws.rs.core.UriInfo;
 import java.util.List;
 import java.util.logging.Logger;
 
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.json.Json;
+import javax.ws.rs.*;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.core.*;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 @ApplicationScoped
 @Path("/users")
 @Produces(MediaType.APPLICATION_JSON)
@@ -34,17 +46,37 @@ public class UserResource {
         return Response.status(Response.Status.OK).entity(users).build();
     }
 
+    /*@GET
+    @Path("google/{googleId}")
+    public Response getGoogleUser(User user, @PathParam("googleId") String googleId) {
+
+        User testUser = new User();
+
+        System.out.println(googleId);
+
+        testUser = userBean.getByGoogleId(googleId);
+
+
+        return Response.status(Response.Status.OK).entity(testUser).build();
+
+    }*/
+
+
     @POST
-    public Response createUser(User user) {
+    @Path("google/{googleId}")
+    public Response identifyGoogleUser(User user, @PathParam("googleId") String googleId) {
 
-        user = userBean.createUser(user);
-        /*if ((imageMetadata.getTitle() == null || imageMetadata.getDescription() == null || imageMetadata.getUri() == null)) {
-            return Response.status(Response.Status.BAD_REQUEST).build();
+        String googleIdParam = googleId.isEmpty() ? googleId : user.getGoogleId();
+
+        User existingUser = userBean.getByGoogleId(googleIdParam);
+
+        if (existingUser != null){
+            return Response.status(Response.Status.OK).entity(existingUser).build();
+        } else {
+            user = userBean.createUser(user);
+            return Response.status(Response.Status.CREATED).entity(user).build();
         }
-        else {
-        }*/
 
-        return Response.status(Response.Status.CONFLICT).entity(user).build();
 
     }
 

@@ -7,6 +7,7 @@ import si.fri.rso.skupina3.user.models.entities.UserEntity;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.logging.Logger;
@@ -27,6 +28,20 @@ public class UserBean {
         List<UserEntity> resultList = query.getResultList();
 
         return resultList.stream().map(UserConverter::toDto).collect(Collectors.toList());
+
+    }
+
+    public User getByGoogleId(String googleId) {
+        Object userEntity = new Object();
+        try{
+        userEntity = em.createQuery("SELECT u FROM UserEntity u where u.googleId = :googleIdParam")
+                .setParameter("googleIdParam", googleId).getSingleResult();
+        } catch (NoResultException noResult){
+            userEntity = null;
+        }
+
+
+        return userEntity == null ? null : UserConverter.toDto((UserEntity) userEntity);
 
     }
 
