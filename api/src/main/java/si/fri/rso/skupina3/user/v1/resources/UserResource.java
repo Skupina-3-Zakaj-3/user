@@ -63,10 +63,10 @@ public class UserResource {
 
 
     @POST
-    @Path("google/{googleId}")
-    public Response identifyGoogleUser(User user, @PathParam("googleId") String googleId) {
+    @Path("google")
+    public Response identifyGoogleUser(User user) {
 
-        String googleIdParam = googleId.isEmpty() ? googleId : user.getGoogleId();
+        String googleIdParam = user.getGoogleId();
 
         User existingUser = userBean.getByGoogleId(googleIdParam);
 
