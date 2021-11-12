@@ -20,7 +20,7 @@ docker run -d --name user_db --network="rso" -e POSTGRES_USER=dbuser -e POSTGRES
 ## Run the container in network
 
 ```bash
-docker run -p 8080:8080 --name user --network="rso" user
+docker run -p 8080:8080 --name user --network="rso" -e KUMULUZEE_DATASOURCES0_CONNECTIONURL=jdbc:postgresql://user_db:5432/users user
 ```
 
 ## Run the container from Docker hub in network
