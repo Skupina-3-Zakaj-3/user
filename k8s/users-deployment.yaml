@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user
+  template:
+    metadata:
+      labels:
+        app: user
+    spec:
+      containers:
+        - image: anzeha/user:latest
+          name: user
+          env:
+            - name: KUMULUZEE_DATASOURCES0_CONNECTIONURL
+              value: jdbc:postgresql://surus.db.elephantsql.com/fozxhgqk
+            - name: KUMULUZEE_DATASOURCES0_USERNAME
+              value: fozxhgqk
+            - name: KUMULUZEE_DATASOURCES0_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: pg-pass
+                  key: KUMULUZEE_DATASOURCES0_PASSWORD
+          ports:
+            - containerPort: 8080
+              name: server
+              protocol: TCP
+         
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: user
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 8080
+      protocol: TCP
+      targetPort: server
+  selector:
+    app: user
