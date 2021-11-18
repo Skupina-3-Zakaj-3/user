@@ -1,5 +1,6 @@
 package si.fri.rso.skupina3.user.services.beans;
 
+import org.eclipse.microprofile.metrics.annotation.Timed;
 import si.fri.rso.skupina3.lib.User;
 import si.fri.rso.skupina3.user.models.converters.UserConverter;
 import si.fri.rso.skupina3.user.models.entities.UserEntity;
@@ -20,6 +21,7 @@ public class UserBean {
     @Inject
     private EntityManager em;
 
+    @Timed
     public List<User> getUser() {
 
         TypedQuery<UserEntity> query = em.createNamedQuery(
