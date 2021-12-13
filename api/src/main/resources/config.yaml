@@ -12,11 +12,11 @@ kumuluzee:
       connection-url: jdbc:postgresql://localhost:5432/users
       username: dbuser
       password: postgres
-  #health:
-  #  checks:
-  #    data-source-health-check:
-  #      type: liveness
-  #      jndi-name: jdbc/UserDS
+  health:
+    checks:
+      data-source-health-check:
+        type: liveness
+        jndi-name: jdbc/UserDS
   metrics:
     web-instrumentation:
       - name: users-endpoint
