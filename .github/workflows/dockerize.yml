@@ -13,13 +13,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-   
-    - name: Get Time
-      id: time
-      uses: nanzm/get-time-action@v1.0
-      with:
-        timeZone: 1
-        format: 'YYYY-MM-DD-HH-mm-ss'
+
+    - name: Set vars
+      id: vars
+      run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
           
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v1
@@ -36,4 +33,17 @@ jobs:
       with:
         file: ./Dockerfile_with_maven_build
         push: true
-        tags: anzeha/user:${{ steps.time.outputs.time }}
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/user:${{ steps.vars.outputs.sha_short }}
+    - name: Setup AKS context
+      uses: azure/aks-set-context@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+        resource-group: ${{ secrets.AZURE_RESOURCE_GROUP }}
+        cluster-name: rso-skupina3
+    - name: deploy to kubernetes
+      uses: Azure/k8s-deploy@v1.4
+      with:
+        manifests: |
+          k8s/users-deployment.yaml
+        images: |
+          ${{ secrets.DOCKERHUB_USERNAME }}/user:${{ steps.vars.outputs.sha_short }}

@@ -13,9 +13,11 @@ spec:
         app: user
     spec:
       containers:
-        - image: anzeha/user:2021-11-14-06-09-16
+        - image: anzeha/user
           name: user
           env:
+            - name: KUMULUZEE_CONFIG_CONSUL_AGENT
+              value: http://consul-server:8500
             - name: KUMULUZEE_DATASOURCES0_CONNECTIONURL
               value: jdbc:postgresql://surus.db.elephantsql.com/fozxhgqk
             - name: KUMULUZEE_DATASOURCES0_USERNAME
