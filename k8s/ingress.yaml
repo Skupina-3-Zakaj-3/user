@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: proxy-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2 #/image-catalog/v1/images
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /users(/|$)(.*)
+            backend:
+              serviceName: user
+              servicePort: 8081
+          - path: /rvs(/|$)(.*)
+            backend:
+              serviceName: rv-catalog
+              servicePort: 8082
+          - path: /reviews(/|$)(.*)
+            backend:
+              serviceName: rv-review
+              servicePort: 8083
+          - path: /authentication(/|$)(.*)
+            backend:
+              serviceName: authentication
+              servicePort: 8084
