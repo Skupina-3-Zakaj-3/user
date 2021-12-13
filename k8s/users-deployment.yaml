@@ -19,9 +19,9 @@ spec:
             - name: KUMULUZEE_CONFIG_CONSUL_AGENT
               value: http://consul-server:8500
             - name: KUMULUZEE_DATASOURCES0_CONNECTIONURL
-              value: jdbc:postgresql://surus.db.elephantsql.com/fozxhgqk
+              value: jdbc:postgresql://surus.db.elephantsql.com/jbsjsmls
             - name: KUMULUZEE_DATASOURCES0_USERNAME
-              value: fozxhgqk
+              value: jbsjsmls
             - name: KUMULUZEE_DATASOURCES0_PASSWORD
               valueFrom:
                 secretKeyRef:
