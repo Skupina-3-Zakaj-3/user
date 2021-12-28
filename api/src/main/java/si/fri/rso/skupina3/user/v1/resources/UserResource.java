@@ -46,21 +46,6 @@ public class UserResource {
         return Response.status(Response.Status.OK).entity(users).build();
     }
 
-    /*@GET
-    @Path("google/{googleId}")
-    public Response getGoogleUser(User user, @PathParam("googleId") String googleId) {
-
-        User testUser = new User();
-
-        System.out.println(googleId);
-
-        testUser = userBean.getByGoogleId(googleId);
-
-
-        return Response.status(Response.Status.OK).entity(testUser).build();
-
-    }*/
-
 
     @POST
     @Path("google")
@@ -76,8 +61,35 @@ public class UserResource {
             user = userBean.createUser(user);
             return Response.status(Response.Status.CREATED).entity(user).build();
         }
-
-
     }
+
+
+    @PUT
+    @Path("{userId}")
+    public Response putUser(@PathParam("userId") Integer userId, User user){
+
+        user = userBean.putUser(userId, user);
+
+        if (user == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+
+        return Response.status(Response.Status.NOT_MODIFIED).build();
+    }
+
+    @DELETE
+    @Path("{userId}")
+    public Response deleteImageMetadata(@PathParam("userId") Integer userId){
+
+        boolean deleted = userBean.deleteImageMetadata(userId);
+
+        if (deleted) {
+            return Response.status(Response.Status.NO_CONTENT).build();
+        }
+        else {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
+
 
 }

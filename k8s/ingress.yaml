@@ -27,3 +27,7 @@ spec:
             backend:
               serviceName: authentication
               servicePort: 8084
+          - path: /reservations(/|$)(.*)
+            backend:
+              serviceName: rv-tenancy
+              servicePort: 8085

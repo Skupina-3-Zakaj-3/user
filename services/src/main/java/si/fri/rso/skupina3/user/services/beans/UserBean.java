@@ -67,6 +67,50 @@ public class UserBean {
         return UserConverter.toDto(userEntity);
     }
 
+    public User putUser(Integer id, User user) {
+
+        UserEntity c = em.find(UserEntity.class, id);
+
+        if (c == null) {
+            return null;
+        }
+
+        UserEntity updatedUserEntity = UserConverter.toEntity(user);
+
+        try {
+            beginTx();
+            updatedUserEntity.setId(c.getId());
+            updatedUserEntity = em.merge(updatedUserEntity);
+            commitTx();
+        }
+        catch (Exception e) {
+            rollbackTx();
+        }
+
+        return UserConverter.toDto(updatedUserEntity);
+    }
+
+    public boolean deleteImageMetadata(Integer id) {
+
+        UserEntity user = em.find(UserEntity.class, id);
+
+        if (user != null) {
+            try {
+                beginTx();
+                em.remove(user);
+                commitTx();
+            }
+            catch (Exception e) {
+                rollbackTx();
+            }
+        }
+        else {
+            return false;
+        }
+
+        return true;
+    }
+
     private void beginTx() {
         if (!em.getTransaction().isActive()) {
             em.getTransaction().begin();
