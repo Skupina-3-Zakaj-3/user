@@ -31,3 +31,7 @@ spec:
             backend:
               serviceName: rv-tenancy
               servicePort: 8085
+          - path: /weather(/|$)(.*)
+            backend:
+              serviceName: weather-api
+              servicePort: 8086

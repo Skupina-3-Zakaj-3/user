@@ -45,5 +45,6 @@ jobs:
       with:
         manifests: |
           k8s/users-deployment.yaml
+          k8s/ingress.yaml
         images: |
           ${{ secrets.DOCKERHUB_USERNAME }}/user:${{ steps.vars.outputs.sha_short }}
