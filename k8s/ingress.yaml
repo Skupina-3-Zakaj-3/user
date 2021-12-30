@@ -35,3 +35,7 @@ spec:
             backend:
               serviceName: weather-api
               servicePort: 8086
+          - path: /billing(/|$)(.*)
+            backend:
+              serviceName: billing
+              servicePort: 8087
