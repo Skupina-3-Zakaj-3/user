@@ -39,6 +39,10 @@ spec:
             backend:
               serviceName: billing
               servicePort: 8087
+          - path: /park-reservations(/|$)(.*)
+            backend:
+              serviceName: rv-park-tenancy
+              servicePort: 8088
           - path: /parks(/|$)(.*)
             backend:
               serviceName: rv-park-catalog
