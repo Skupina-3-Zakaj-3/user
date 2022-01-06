@@ -1,6 +1,10 @@
 package si.fri.rso.skupina3.user.services.beans;
 
-import org.eclipse.microprofile.metrics.annotation.Timed;
+import org.eclipse.microprofile.metrics.*;
+import org.eclipse.microprofile.metrics.ConcurrentGauge;
+import org.eclipse.microprofile.metrics.annotation.*;
+import org.eclipse.microprofile.metrics.annotation.Metered;
+import org.eclipse.microprofile.metrics.annotation.Metric;
 import si.fri.rso.skupina3.lib.User;
 import si.fri.rso.skupina3.user.models.converters.UserConverter;
 import si.fri.rso.skupina3.user.models.entities.UserEntity;
@@ -21,7 +25,19 @@ public class UserBean {
     @Inject
     private EntityManager em;
 
-    @Timed
+    @Inject
+    @Metric(name = "user_counter")
+    private ConcurrentGauge userCounter;
+
+    @Inject
+    @Metric(name = "user_adding_meter")
+    private Meter addMeter;
+
+    @Inject
+    @Metric(name = "simple_histogram")
+    Histogram histogram;
+
+    @Timed(name = "get_all_users_timer")
     public List<User> getUser() {
 
         TypedQuery<UserEntity> query = em.createNamedQuery(
@@ -31,6 +47,15 @@ public class UserBean {
 
         return resultList.stream().map(UserConverter::toDto).collect(Collectors.toList());
 
+    }
+
+//    @Gauge(name = "user_count_gauge", unit = MetricUnits.NONE)
+    private int getUserCount() {
+        TypedQuery<UserEntity> query = em.createNamedQuery(
+                "UserEntity.getAll", UserEntity.class);
+
+        List<UserEntity> resultList = query.getResultList();
+        return resultList.size();
     }
 
     public User getByGoogleId(String googleId) {
@@ -48,6 +73,8 @@ public class UserBean {
     }
 
     public User createUser(User user) {
+        addMeter.mark();
+        userCounter.inc();
 
         UserEntity userEntity = UserConverter.toEntity(user);
 
@@ -63,10 +90,12 @@ public class UserBean {
         if (userEntity.getId() == null) {
             throw new RuntimeException("Entity was not persisted");
         }
+        histogram.update(getUserCount());
 
         return UserConverter.toDto(userEntity);
     }
 
+    @Metered(name = "requests_putUser")
     public User putUser(Integer id, User user) {
 
         UserEntity c = em.find(UserEntity.class, id);
@@ -90,7 +119,10 @@ public class UserBean {
         return UserConverter.toDto(updatedUserEntity);
     }
 
-    public boolean deleteImageMetadata(Integer id) {
+    @SimplyTimed(name = "delete_user_simple_timer")
+    @Counted(name = "counter_deleteUser")
+    public boolean deleteUser(Integer id) {
+        userCounter.dec();
 
         UserEntity user = em.find(UserEntity.class, id);
 

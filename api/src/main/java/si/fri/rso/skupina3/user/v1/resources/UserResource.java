@@ -79,9 +79,9 @@ public class UserResource {
 
     @DELETE
     @Path("{userId}")
-    public Response deleteImageMetadata(@PathParam("userId") Integer userId){
+    public Response deleteUser(@PathParam("userId") Integer userId){
 
-        boolean deleted = userBean.deleteImageMetadata(userId);
+        boolean deleted = userBean.deleteUser(userId);
 
         if (deleted) {
             return Response.status(Response.Status.NO_CONTENT).build();
@@ -91,5 +91,18 @@ public class UserResource {
         }
     }
 
+    @POST
+    public Response createUser(User user) {
+
+//        if ((imageMetadata.getTitle() == null || imageMetadata.getDescription() == null || imageMetadata.getUri() == null)) {
+//            return Response.status(Response.Status.BAD_REQUEST).build();
+//        }
+//        else {
+        user = userBean.createUser(user);
+//        }
+
+        return Response.status(Response.Status.CONFLICT).entity(user).build();
+
+    }
 
 }

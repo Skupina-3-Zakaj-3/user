@@ -1,5 +1,5 @@
 kumuluzee:
-  name: service
+  name: user-service
   env:
     name: dev
   version: 1.0.0
@@ -7,6 +7,12 @@ kumuluzee:
     base-url: http://localhost:8080
     http:
       port: 8080
+  config:
+    consul:
+      agent: http://localhost:8500
+  discovery:
+    consul:
+      agent: http://localhost:8500
   datasources:
     - jndi-name: jdbc/UserDS
       connection-url: jdbc:postgresql://localhost:5432/users
