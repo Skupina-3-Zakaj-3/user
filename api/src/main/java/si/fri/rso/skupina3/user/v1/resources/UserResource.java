@@ -46,6 +46,18 @@ public class UserResource {
         return Response.status(Response.Status.OK).entity(users).build();
     }
 
+    @GET
+    @Path("{userId}")
+    public Response getUserById(@PathParam("userId") Integer userId) {
+
+        String userName = userBean.getUserNameByUserId(userId);
+
+        if (userName != null){
+            return Response.status(Response.Status.OK).entity(userName).build();
+        } else {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
 
     @POST
     @Path("google")

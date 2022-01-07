@@ -72,6 +72,23 @@ public class UserBean {
 
     }
 
+    public String getUserNameByUserId(Integer userId) {
+        Object userEntity = new Object();
+        try{
+            userEntity = em.createQuery("SELECT u FROM UserEntity u where u.id = :userId")
+                    .setParameter("userId", userId).getSingleResult();
+        } catch (NoResultException noResult){
+            userEntity = null;
+        }
+
+
+        User user = userEntity == null ? null :UserConverter.toDto((UserEntity) userEntity);
+        return  user == null ? null : user.getName() +" " + user.getSurname();
+
+    }
+
+
+
     public User createUser(User user) {
         addMeter.mark();
         userCounter.inc();
