@@ -24,7 +24,7 @@ docker run -d --name consul -p 8500:8500 --network=rso consul:latest
 
 ## Run the container in network
 ```bash
-docker run -d -p 8080:8080 --name user --network="rso" -e KUMULUZEE_DATASOURCES0_CONNECTIONURL=jdbc:postgresql://pg-user:5432/users -e KUMULUZEE_CONFIG_CONSUL_AGENT=http://consul:8500 user
+docker run -d -p 8080:8080 --name user --network="rso" -e KUMULUZEE_DATASOURCES0_CONNECTIONURL=jdbc:postgresql://pg-user:5432/users -e KUMULUZEE_CONFIG_CONSUL_AGENT=http://consul-server:8500 user
 ```
 
 ## Run the container from Docker hub in network
