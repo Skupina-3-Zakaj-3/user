@@ -30,4 +30,5 @@ public class CustomRvParkCatalogHealthCheck implements HealthCheck {
         }
         return HealthCheckResponse.down(CustomRvParkCatalogHealthCheck.class.getSimpleName());
     }
+    
 }
