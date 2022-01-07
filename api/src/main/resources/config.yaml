@@ -10,9 +10,9 @@ kumuluzee:
   config:
     consul:
       agent: http://consul-server:8500
-  discovery:
-    consul:
-      agent: http://consul-server:8500
+#  discovery:
+#    consul:
+#      agent: http://consul-server:8500
   datasources:
     - jndi-name: jdbc/UserDS
       connection-url: jdbc:postgresql://localhost:5432/users
