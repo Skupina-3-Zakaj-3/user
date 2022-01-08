@@ -85,6 +85,12 @@
             </dependency>
 
             <dependency>
+                <artifactId>kumuluzee-logs-log4j2</artifactId>
+                <groupId>com.kumuluz.ee.logs</groupId>
+                <version>${kumuluzee-logs.version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>si.fri.rso.skupina3</groupId>
                 <artifactId>api</artifactId>
                 <version>${project.version}</version>

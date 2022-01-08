@@ -1,5 +1,6 @@
 package si.fri.rso.skupina3.user.v1.resources;
 
+import com.kumuluz.ee.logs.cdi.Log;
 import si.fri.rso.skupina3.lib.User;
 import si.fri.rso.skupina3.user.services.beans.UserBean;
 
@@ -25,6 +26,7 @@ import javax.ws.rs.core.*;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
+@Log
 @ApplicationScoped
 @Path("/users")
 @Produces(MediaType.APPLICATION_JSON)
