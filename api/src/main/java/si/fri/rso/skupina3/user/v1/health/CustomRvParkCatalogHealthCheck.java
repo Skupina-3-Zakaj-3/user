@@ -28,9 +28,7 @@ public class CustomRvParkCatalogHealthCheck implements HealthCheck {
         } catch (Exception exception) {
             LOG.severe(exception.getMessage());
         }
-        return HealthCheckResponse.up(CustomRvParkCatalogHealthCheck.class.getSimpleName());
-
-//        return HealthCheckResponse.down(CustomRvParkCatalogHealthCheck.class.getSimpleName());
+        return HealthCheckResponse.down(CustomRvParkCatalogHealthCheck.class.getSimpleName());
     }
     
 }
