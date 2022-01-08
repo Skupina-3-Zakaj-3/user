@@ -17,19 +17,19 @@ public class CustomConsulHealthCheck implements HealthCheck {
 
     private static final Logger LOG = Logger.getLogger(CustomConsulHealthCheck.class.getSimpleName());
     Optional<String> url =  ConfigurationUtil.getInstance().get("kumuluzee.config.consul.agent");
-//
+
     @Override
     public HealthCheckResponse call() {
-//        try {
-//            HttpURLConnection connection = (HttpURLConnection) new URL(url.get()).openConnection();
-//            connection.setRequestMethod("HEAD");
-//
-//            if (connection.getResponseCode() == 200) {
+        try {
+            HttpURLConnection connection = (HttpURLConnection) new URL(url.get()).openConnection();
+            connection.setRequestMethod("HEAD");
+
+            if (connection.getResponseCode() == 200) {
                 return HealthCheckResponse.up(CustomConsulHealthCheck.class.getSimpleName());
-//            }
-//        } catch (Exception exception) {
-//            LOG.severe(exception.getMessage());
-//        }
-//        return HealthCheckResponse.down(CustomConsulHealthCheck.class.getSimpleName());
+            }
+        } catch (Exception exception) {
+            LOG.severe(exception.getMessage());
+        }
+        return HealthCheckResponse.down(CustomConsulHealthCheck.class.getSimpleName());
     }
 }
