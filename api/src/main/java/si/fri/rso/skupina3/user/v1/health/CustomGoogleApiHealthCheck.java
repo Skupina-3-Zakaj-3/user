@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 public class CustomGoogleApiHealthCheck implements HealthCheck {
 
     private static final Logger LOG = Logger.getLogger(CustomGoogleApiHealthCheck.class.getSimpleName());
-    String url =  "https://www.google.si";
+    String url =  "http://www.google.si";
 
     @Override
     public HealthCheckResponse call() {
