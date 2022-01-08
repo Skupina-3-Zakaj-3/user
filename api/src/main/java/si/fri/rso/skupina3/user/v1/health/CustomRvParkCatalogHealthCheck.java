@@ -13,21 +13,23 @@ import java.util.logging.Logger;
 @ApplicationScoped
 public class CustomRvParkCatalogHealthCheck implements HealthCheck {
 
-//    private static final Logger LOG = Logger.getLogger(CustomRvParkCatalogHealthCheck.class.getSimpleName());
-//    String url =  "http://rv-park-catalog:8089/v1/parks";
+    private static final Logger LOG = Logger.getLogger(CustomRvParkCatalogHealthCheck.class.getSimpleName());
+    String url =  "http://rv-park-catalog:8089/v1/parks";
 
     @Override
     public HealthCheckResponse call() {
-//        try {
-//            HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
-//            connection.setRequestMethod("HEAD");
-//
-//            if (connection.getResponseCode() == 200) {
+        try {
+            HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
+            connection.setRequestMethod("HEAD");
+
+            if (connection.getResponseCode() == 200) {
                 return HealthCheckResponse.up(CustomRvParkCatalogHealthCheck.class.getSimpleName());
-//            }
-//        } catch (Exception exception) {
-//            LOG.severe(exception.getMessage());
-//        }
+            }
+        } catch (Exception exception) {
+            LOG.severe(exception.getMessage());
+        }
+        return HealthCheckResponse.up(CustomRvParkCatalogHealthCheck.class.getSimpleName());
+
 //        return HealthCheckResponse.down(CustomRvParkCatalogHealthCheck.class.getSimpleName());
     }
     
