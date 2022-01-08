@@ -25,10 +25,10 @@ kumuluzee:
       data-source-health-check:
         type: liveness
         jndi-name: jdbc/UserDS
-      disk-space-health-check:
-        threshold: 100000000
-      http-health-check:
-        connection-url: https://rapidapi.com/weatherapi/api/weatherapi-com
+#      disk-space-health-check:
+#        threshold: 100000000
+#      http-health-check:
+#        connection-url: https://rapidapi.com/weatherapi/api/weatherapi-com
   metrics:
     web-instrumentation:
       - name: users-endpoint

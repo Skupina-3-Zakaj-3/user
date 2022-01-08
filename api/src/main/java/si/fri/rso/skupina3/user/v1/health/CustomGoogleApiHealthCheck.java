@@ -13,21 +13,21 @@ import java.util.logging.Logger;
 @ApplicationScoped
 public class CustomGoogleApiHealthCheck implements HealthCheck {
 
-    private static final Logger LOG = Logger.getLogger(CustomGoogleApiHealthCheck.class.getSimpleName());
-    String url =  "https://www.google.si";
+//    private static final Logger LOG = Logger.getLogger(CustomGoogleApiHealthCheck.class.getSimpleName());
+//    String url =  "https://www.google.si";
 
     @Override
     public HealthCheckResponse call() {
-        try {
-            HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
-            connection.setRequestMethod("HEAD");
-
-            if (connection.getResponseCode() == 200) {
+//        try {
+//            HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
+//            connection.setRequestMethod("HEAD");
+//
+//            if (connection.getResponseCode() == 200) {
                 return HealthCheckResponse.up(CustomGoogleApiHealthCheck.class.getSimpleName());
-            }
-        } catch (Exception exception) {
-            LOG.severe(exception.getMessage());
-        }
-        return HealthCheckResponse.down(CustomGoogleApiHealthCheck.class.getSimpleName());
+//            }
+//        } catch (Exception exception) {
+//            LOG.severe(exception.getMessage());
+//        }
+//        return HealthCheckResponse.down(CustomGoogleApiHealthCheck.class.getSimpleName());
     }
 }
